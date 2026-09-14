@@ -2,6 +2,11 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("------Jogo da Velha------");
+        // Cria o tabuleiro na memória
+        Board jogoDaVelha = new Board();
+
+        jogoDaVelha.incicializaTabuleiro();
+        jogoDaVelha.lancesDisponiveis();
 
         /* 
         IMPORTANTE: A declaração de jogadores a seguir se trata apenas de um direcionamento
