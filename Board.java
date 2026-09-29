@@ -1,7 +1,7 @@
 public class Board {
-    Piece[] pecas = new Piece[9]; // No total 9 peças X ou O serão jogadas
-    int[][] tabuleiro = new int[3][3];
-    String[][] tabuleiroVisivel = new String[3][3];
+    private Piece[] pecas = new Piece[9]; // No total 9 peças X ou O serão jogadas
+    private int[][] tabuleiro = new int[3][3];
+    private String[][] tabuleiroVisivel = new String[3][3];
 
     // Cria as matrizes do tabuleiro (1. a armazenada na máquina; 2. a visível aos jogadores)
     public void incicializaTabuleiro() {
@@ -30,6 +30,10 @@ public class Board {
 
     // Armazena o valor da jogada X(+1) ou por O(-1)
     public void atualizaTabuleiro() {
-
+        /* 
+        em algum momento será usado
+        tabuleiroVisivel[lin][col] = "X";
+        ou semelhante
+        */
     }
 }
