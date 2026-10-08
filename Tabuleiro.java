@@ -1,7 +1,7 @@
 public class Tabuleiro {
     private static final int LINHAS = 3;
-    private static final int COLUNAS=3;
-    private static final char VAZIO= ' ';   
+    private static final int COLUNAS = 3;
+    private static final char VAZIO = ' ';   
     
 
     //Inicío do encapsulamento : Quem tiver fora nao acessa diretamente 
@@ -15,13 +15,13 @@ public class Tabuleiro {
     //Método para limpar o tabuleiro, preenchendo com espaços vazios
     private void limparTabuleiro(){
         for (int i=0; i < LINHAS; i++){
-            for (int j= 0; j< COLUNAS; j++){
+            for (int j= 0; j < COLUNAS; j++){
                 this.grade[i][j] = VAZIO;
             }
         }
     }
 
-    //Método de verificação dos indices , se estao dentro dos limites daa matriz
+    //Método de verificação dos indices, se estao dentro dos limites da matriz
     public boolean posicaoValida(int linha, int coluna){
         return linha >= 0 && linha < LINHAS && coluna>=0 && coluna < COLUNAS; 
     }
@@ -36,7 +36,7 @@ public class Tabuleiro {
 
     //Método que posiciona a peça se a jogada for válida, caso contrário retorna falso
     public boolean posicionarPeca(int linha, int coluna, char simbolo){
-        if (posicaoValida(linha, coluna)&& estaVazia(linha, coluna)){
+        if (posicaoValida(linha, coluna) && estaVazia(linha, coluna)){
             this.grade[linha][coluna] = simbolo;
             return true; //Posição válida e vazia, peça posicionada com sucesso
         }
@@ -50,12 +50,12 @@ public class Tabuleiro {
         return this.grade[linha][coluna];
     }
 
-    public void exibir(){
+    public void exibirTabuleiro(){
         System.out.println();
         System.out.println("  1   2   3");
         System.out.println("------------------------");
         for (int i=0; i < LINHAS; i++){
-            System.out.print((i+1)+"|");
+            System.out.print((i+1) + "|");
             for (int j=0; j< COLUNAS; j++){
                 System.out.print(this.grade[i][j]);
                 System.out.print("|"); 
