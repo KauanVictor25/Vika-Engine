@@ -14,11 +14,11 @@ public class Main {
     public static int lerInteiro() {
         return Integer.parseInt(scanner.nextLine().trim());
     }
+
     public static void main(String[] args) {
 
         // Cria o tabuleiro na memória
-        Board jogoDaVelha = new Board();
-        jogoDaVelha.incicializaTabuleiro();
+        Tabuleiro jogoDaVelha = new Tabuleiro();
 
         boolean jogoAtivo = true;
         int acao = 0;
@@ -29,23 +29,29 @@ public class Main {
             System.out.print("Ação: ");
             acao = lerInteiro();
             switch (acao) {
+                // 1. Iniciar novo jogo
                 case 1:
-                    // Inicializa os dois jogadores
+                    // Recebe os dois novos jogadores
                     int qntdJogadores = 2;
                     Player[] jogador = new Player[qntdJogadores];
-
-                    for (int i = 0; i < qntdJogadores; i++) {
-                            System.out.println("--- Jogador " + (i+1) + " ---");
-                            System.out.print("Nome: ");
-                            String nome = lerString();
-                            System.out.print("Simbolo (o / x): ");
-                            char simbolo = lerCaractere();
-
-                            jogador[i] = new Player(nome, simbolo);
-                        }
+                    // Jogador 1 (X)
+                    System.out.println("--- Jogador X ---");
+                    System.out.print("Nome: ");
+                    String nome = lerString();            
+                    jogador[0] = new Player(nome, "X".charAt(0));
+                    
+                    // Jogador 2 (O)
+                    System.out.println("--- Jogador O ---");
+                    System.out.print("Nome: ");
+                    nome = lerString();                   
+                    jogador[1] = new Player(nome, "O".charAt(0));
+                        
                     System.out.println("--- Jogadores definidos! ---");
-                    break;
 
+                    // Inicia loop do jogo
+                    // 1) 
+                    break;
+                // 2. Fechar programa
                 case 2:
                     System.out.println("Fechando o programa...");
                     jogoAtivo = false;
@@ -56,7 +62,5 @@ public class Main {
                     break;
             }
         }
-        // Ainda não implementado na lógica do programa
-        jogoDaVelha.lancesDisponiveis();
     }
 }
