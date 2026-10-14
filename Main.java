@@ -31,26 +31,60 @@ public class Main {
             switch (acao) {
                 // 1. Iniciar novo jogo
                 case 1:
+                    jogoDaVelha.limparTabuleiro();
                     // Recebe os dois novos jogadores
                     int qntdJogadores = 2;
-                    Player[] jogador = new Player[qntdJogadores];
-                    // Jogador 1 (X)
-                    System.out.println("--- Jogador X ---");
-                    System.out.print("Nome: ");
-                    String nome = lerString();            
-                    jogador[0] = new Player(nome, "X".charAt(0));
-                    
-                    // Jogador 2 (O)
-                    System.out.println("--- Jogador O ---");
-                    System.out.print("Nome: ");
-                    nome = lerString();                   
-                    jogador[1] = new Player(nome, "O".charAt(0));
-                        
+                    Jogador[] jogador = new Jogador[qntdJogadores];
+                    for (int i = 0; i < qntdJogadores; i++) {
+                        char simbolo = 's';
+                        if (i == 0) simbolo = 'X';
+                        if (i == 1) simbolo = 'O';
+                        System.out.println("--- Jogador " + simbolo + " ---");
+                        System.out.print("Nome: ");
+                        String nome = lerString();
+                        jogador[i] = new Jogador(nome, simbolo);
+                    }
                     System.out.println("--- Jogadores definidos! ---");
 
                     // Inicia loop do jogo
-                    // 1) 
+                    int jogadasDisponiveis = 9;
+                    char vezDeJogar = 0; // Primeira jogada do jogador X (id 0)
+                    while (jogadasDisponiveis > 0) {
+                        int linhaJogada = 0;
+                        int colunaJogada = 0;
+                        boolean jogadaValida = false;
+                        while (!jogadaValida) {
+                            jogoDaVelha.exibirTabuleiro();
+                            System.out.println("Vez de " + jogador[vezDeJogar].getNome() + " com " + jogador[vezDeJogar].getSimbolo());
+                            System.out.print("Digite a jogada LC(Ex.: 12, 33, ...)): ");
+                            String jogada = lerString();
+                            System.out.println();
+                            linhaJogada = Character.getNumericValue(jogada.charAt(0)) - 1;
+                            colunaJogada = Character.getNumericValue(jogada.charAt(1)) - 1;
+                            
+                            if (jogoDaVelha.posicaoValida(linhaJogada, colunaJogada)) {
+                                jogadaValida = true;
+                                jogoDaVelha.posicionarPeca(linhaJogada, colunaJogada, jogador[vezDeJogar].getSimbolo());
+                            }
+                            else System.out.println("-> Jogada inválida!");
+                        }
+                        if (jogoDaVelha.verificaVitoria(linhaJogada, colunaJogada, jogador[vezDeJogar].getSimbolo())) {
+                            jogoDaVelha.exibirTabuleiro();
+                            System.out.println("-> " + jogador[vezDeJogar].getNome() + " venceu!\n");
+                            break;
+                        }
+                        if (jogadaValida) { // Só passa a vez se a jogada for válida
+                            if (vezDeJogar == 0) vezDeJogar = 1;
+                            else if (vezDeJogar == 1) vezDeJogar = 0;
+                            jogadasDisponiveis--;
+                        }
+                    }
+                    if (jogadasDisponiveis == 0) {
+                        jogoDaVelha.exibirTabuleiro();
+                        System.out.println("-> Empate!\n");
+                    }
                     break;
+
                 // 2. Fechar programa
                 case 2:
                     System.out.println("Fechando o programa...");
