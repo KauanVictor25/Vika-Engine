@@ -1,21 +1,22 @@
 public class Tabuleiro {
-    private static final int LINHAS = 3;
-    private static final int COLUNAS = 3;
+    private int linhas;
+    private int colunas;
     private static final char VAZIO = ' ';   
     
-
-    //Inicío do encapsulamento : Quem tiver fora nao acessa diretamente 
     private char[][] grade; //Matriz que representa o tabuleiro
 
-    public Tabuleiro() {
-        this.grade = new char[LINHAS][COLUNAS];
+    public Tabuleiro(int linhas, int colunas) {
+        this.grade = new char[linhas][colunas];
         limparTabuleiro();
     }
 
+    public int getLinhas() {return linhas;}
+    public int getColunas() {return colunas;}
+
     //Método para limpar o tabuleiro, preenchendo com espaços vazios
     public void limparTabuleiro(){
-        for (int i=0; i < LINHAS; i++){
-            for (int j= 0; j < COLUNAS; j++){
+        for (int i = 0; i < linhas; i++){
+            for (int j = 0; j < colunas; j++){
                 this.grade[i][j] = VAZIO;
             }
         }
@@ -23,7 +24,7 @@ public class Tabuleiro {
 
     //Método de verificação dos indices, se estao dentro dos limites da matriz
     public boolean posicaoNosLimites(int linha, int coluna){
-        return linha >= 0 && linha < LINHAS && coluna >= 0 && coluna < COLUNAS; 
+        return linha >= 0 && linha < linhas && coluna >= 0 && coluna < colunas; 
     }
 
     //Método de verificação da posição, se está vazia ou ocupada
@@ -43,6 +44,7 @@ public class Tabuleiro {
         return false; //Posição inválida ou ocupada, peça não posicionada
     }
 
+    //Retorna o símbolo contido na casa especificada
     public char getSimbolo(int linha, int coluna){
         if (!posicaoNosLimites(linha, coluna)){
             return VAZIO;
@@ -50,13 +52,31 @@ public class Tabuleiro {
         return this.grade[linha][coluna];
     }
 
+    public boolean estaCheio() {
+        boolean temCasaVazia = false;
+        for (int i = 0; i < linhas; i++) {
+            for (int j = 0; j < colunas; j++) {
+                if (this.grade[i][j] == VAZIO) {
+                    temCasaVazia = true;
+                    break; }                
+            }
+        }
+        return !temCasaVazia;
+    }
+
+    //Exibe o tabuleiro com as peças que foram posicionadas em cada casa até o momento da execução
     public void exibirTabuleiro(){
         System.out.println();
         System.out.println("---- Tabuleiro Atual ----");
-        System.out.println("L\\C 1   2   3");
-        for (int i=0; i < LINHAS; i++){
+        //Mostra índices das colunas
+        System.out.print("L\\C ");
+        for (int y = 0; y < colunas; y++) {System.out.print((y+1) + " | ");}
+        System.out.println();
+
+        //Mostra índice das linhas e casas do tabuleiro
+        for (int i = 0; i < linhas; i++){
             System.out.print((i+1) + " | ");
-            for (int j=0; j< COLUNAS; j++){
+            for (int j = 0; j < colunas; j++){
                 System.out.print(this.grade[i][j]);
                 System.out.print(" | "); 
             }
@@ -64,6 +84,8 @@ public class Tabuleiro {
         }
         System.out.println();
     }
+
+/*  ***Esse método será implementado pela Trilha 2 de Kauan***
 
     public boolean verificaVitoria(int linha, int coluna, char simbolo) {
         boolean venceLinha = false, venceColuna = false, venceDiagPrincip = false, venceDiagSecund = false;
@@ -108,6 +130,7 @@ public class Tabuleiro {
         if (venceLinha == true || venceColuna == true || venceDiagPrincip == true || venceDiagSecund == true) return true;
         else return false;
     }
+    */
 }
 
     
