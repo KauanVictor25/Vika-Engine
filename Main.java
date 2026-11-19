@@ -16,14 +16,20 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        // Cria o processador do jogo
+        GameEngine gameEngine = new GameEngine();
+
+        // O .json deve trazer a linha e a coluna
+        int linha = 3;
+        int coluna = 3;
 
         // Cria o tabuleiro na memória
-        Tabuleiro jogoDaVelha = new Tabuleiro();
+        Tabuleiro tabuleiro = new Tabuleiro(linha, coluna);
 
         boolean jogoAtivo = true;
         int acao = 0;
         while (jogoAtivo) {
-            System.out.println("------ Jogo da Velha ------");
+            System.out.println("------ Vika Engine ------");
             System.out.println("1. Iniciar novo jogo");
             System.out.println("2. Fechar programa");
             System.out.print("Ação: ");
@@ -31,7 +37,7 @@ public class Main {
             switch (acao) {
                 // 1. Iniciar novo jogo
                 case 1:
-                    jogoDaVelha.limparTabuleiro();
+                    tabuleiro.limparTabuleiro();
                     // Recebe os dois novos jogadores
                     int qntdJogadores = 2;
                     Jogador[] jogador = new Jogador[qntdJogadores];
@@ -46,44 +52,8 @@ public class Main {
                     }
                     System.out.println("--- Jogadores definidos! ---");
 
-                    // Inicia loop do jogo
-                    int jogadasDisponiveis = 9;
-                    char vezDeJogar = 0; // Primeira jogada do jogador X (id 0)
-                    while (jogadasDisponiveis > 0) {
-                        int linhaJogada = 0;
-                        int colunaJogada = 0;
-                        boolean jogadaValida = false;
-                        while (!jogadaValida) {
-                            jogoDaVelha.exibirTabuleiro();
-                            System.out.println("Vez de " + jogador[vezDeJogar].getNome() + " com " + jogador[vezDeJogar].getSimbolo());
-                            System.out.print("Digite a jogada LC(Ex.: 12, 33, ...)): ");
-                            String jogada = lerString();
-                            System.out.println();
-                            linhaJogada = Character.getNumericValue(jogada.charAt(0)) - 1;
-                            colunaJogada = Character.getNumericValue(jogada.charAt(1)) - 1;
-                            
-                            if (jogoDaVelha.posicaoValida(linhaJogada, colunaJogada)) {
-                                jogadaValida = true;
-                                jogoDaVelha.posicionarPeca(linhaJogada, colunaJogada, jogador[vezDeJogar].getSimbolo());
-                            }
-                            else System.out.println("-> Jogada inválida!");
-                        }
-                        if (jogoDaVelha.verificaVitoria(linhaJogada, colunaJogada, jogador[vezDeJogar].getSimbolo())) {
-                            jogoDaVelha.exibirTabuleiro();
-                            System.out.println("-> " + jogador[vezDeJogar].getNome() + " venceu!\n");
-                            break;
-                        }
-                        if (jogadaValida) { // Só passa a vez se a jogada for válida
-                            if (vezDeJogar == 0) vezDeJogar = 1;
-                            else if (vezDeJogar == 1) vezDeJogar = 0;
-                            jogadasDisponiveis--;
-                        }
-                    }
-                    if (jogadasDisponiveis == 0) {
-                        jogoDaVelha.exibirTabuleiro();
-                        System.out.println("-> Empate!\n");
-                    }
-                    break;
+                    // Loop do jogo
+                    gameEngine.iniciarPartida();
 
                 // 2. Fechar programa
                 case 2:
