@@ -14,38 +14,48 @@ public class Main {
     public static int lerInteiro() {
         return Integer.parseInt(scanner.nextLine().trim());
     }
+
     public static void main(String[] args) {
+        // Cria o processador do jogo
+        GameEngine gameEngine = new GameEngine();
+
+        // O .json deve trazer a linha e a coluna
+        int linha = 3;
+        int coluna = 3;
 
         // Cria o tabuleiro na memória
-        Board jogoDaVelha = new Board();
-        jogoDaVelha.incicializaTabuleiro();
+        Tabuleiro tabuleiro = new Tabuleiro(linha, coluna);
 
         boolean jogoAtivo = true;
         int acao = 0;
         while (jogoAtivo) {
-            System.out.println("------ Jogo da Velha ------");
+            System.out.println("------ Vika Engine ------");
             System.out.println("1. Iniciar novo jogo");
             System.out.println("2. Fechar programa");
             System.out.print("Ação: ");
             acao = lerInteiro();
             switch (acao) {
+                // 1. Iniciar novo jogo
                 case 1:
-                    // Inicializa os dois jogadores
+                    tabuleiro.limparTabuleiro();
+                    // Recebe os dois novos jogadores
                     int qntdJogadores = 2;
-                    Player[] jogador = new Player[qntdJogadores];
-
+                    Jogador[] jogador = new Jogador[qntdJogadores];
                     for (int i = 0; i < qntdJogadores; i++) {
-                            System.out.println("--- Jogador " + (i+1) + " ---");
-                            System.out.print("Nome: ");
-                            String nome = lerString();
-                            System.out.print("Simbolo (o / x): ");
-                            char simbolo = lerCaractere();
-
-                            jogador[i] = new Player(nome, simbolo);
-                        }
+                        char simbolo = 's';
+                        if (i == 0) simbolo = 'X';
+                        if (i == 1) simbolo = 'O';
+                        System.out.println("--- Jogador " + simbolo + " ---");
+                        System.out.print("Nome: ");
+                        String nome = lerString();
+                        jogador[i] = new Jogador(nome, simbolo);
+                    }
                     System.out.println("--- Jogadores definidos! ---");
-                    break;
 
+                    // Loop do jogo
+                    gameEngine.iniciarPartida();
+
+                // 2. Fechar programa
                 case 2:
                     System.out.println("Fechando o programa...");
                     jogoAtivo = false;
@@ -56,7 +66,5 @@ public class Main {
                     break;
             }
         }
-        // Ainda não implementado na lógica do programa
-        jogoDaVelha.lancesDisponiveis();
     }
 }
