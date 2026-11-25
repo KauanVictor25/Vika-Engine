@@ -2,6 +2,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+
 public class GameEngine {
     private Tabuleiro tabuleiro;
     List<Jogador> jogadores = new ArrayList<Jogador>();
@@ -9,6 +11,21 @@ public class GameEngine {
     private WinCondition winCondition;
     private String nomeJogo;
 
+    // Construtor usado pelo GameLoader para injetar as configurações do JSON
+    public GameEngine(Tabuleiro tabuleiro, List<Jogador> jogadores, PlacementRule placementRule, WinCondition winCondition, String nomeJogo) {
+        this.tabuleiro = tabuleiro;
+        this.jogadores = jogadores;
+        this.placementRule = placementRule;
+        this.winCondition = winCondition;
+        this.nomeJogo = nomeJogo;
+
+    }
+    public GameEngine(Tabuleiro tabuleiro, PlacementRule placementRule, WinCondition winCondition, String nomeJogo) {
+        this.tabuleiro = tabuleiro;
+        this.placementRule = placementRule;
+        this.winCondition = winCondition;
+        this.nomeJogo = nomeJogo;
+    }
     public void iniciarPartida() {
         Scanner scanner = new Scanner(System.in);
         int indiceAtual = 0;
